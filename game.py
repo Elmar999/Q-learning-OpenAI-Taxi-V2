@@ -18,7 +18,7 @@ def train_Qtable(Q, env, num_episodes, epsilon, gamma, lr_rate):
     Returns:
         Q_optimal (numpy array): updated Q table which is converged to optimal
     '''
-    
+
     Q_old = Q.copy()
     for i in range(num_episodes):
         # define initial state
@@ -46,7 +46,14 @@ def train_Qtable(Q, env, num_episodes, epsilon, gamma, lr_rate):
 
 
 def launch_game(Q, env):
-    # Is our Q good enough to guide us from start to goal without falling into the water?
+    '''
+    launch game with optimal Q value
+    Args:
+        Q (numpy array): Q table with optimal values
+        env (gym environment)
+    '''
+
+    # define initial state
     state = env.reset()
     env.render()
     done = False
@@ -74,7 +81,8 @@ if __name__ == "__main__":
     # train Q table
     Q_optimal = train_Qtable(Q, env, num_episodes, epsilon, gamma, learning_rate)
 
-    # print(Q)
+    print("Q table with optimal values:\n", Q_optimal )
 
+    print("\nlaunch game with optimal Q values\n")
     launch_game(Q_optimal, env)
 
